@@ -1,0 +1,9 @@
+/skin/frontend/das_labor/default/css
+/skin/frontend/das_labor/default/bower_components
+/skin/frontend/das_labor/default/node_modules
+/skin/frontend/das_labor/default/js
+/skin/frontend/das_labor/default/images
+/skin/frontend/das_labor/default/.jshintrc
+/skin/frontend/das_labor/default/.gitignore
+*.swp
+*.swo

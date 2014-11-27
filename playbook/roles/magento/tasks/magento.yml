@@ -1,0 +1,29 @@
+---
+- name: Download Magento 1.9.0.1
+  get_url: dest=/tmp/magento-1.9.0.1.tar.gz url=http://www.magentocommerce.com/downloads/assets/1.9.0.1/magento-1.9.0.1.tar.gz
+
+- name: Unpack Magento archive
+  unarchive: dest=/tmp src=/tmp/magento-1.9.0.1.tar.gz copy=no
+
+- name: Copy Magento files
+  command: sh -c "cp -Ra /tmp/magento/* /srv/www/{{domain}}"
+
+- name: Download Labor Shop Theme
+  get_url: dest=/tmp/shop-theme.zip url=https://github.com/das-labor/shop-theme/archive/master.zip
+
+- name: Unpack Labor Shop Theme
+  unarchive: dest=/tmp src=/tmp/shop-theme.zip copy=no
+
+- name: Copy Labor Shop Theme
+  command: sh -c "cp -Ra /tmp/shop-theme-master/* /srv/www/{{domain}}"
+
+- command: find /srv/www/{{domain}} -type d -exec chmod 700 {} \;
+- command: find /srv/www/{{domain}} -type f -exec chmod 600 {} \;
+- command: chown -R www-data /srv/www/{{domain}}
+- command: chgrp -R www-data /srv/www/{{domain}}
+
+- name: Configure Magento instance
+  command: sh -c 'php -f /srv/www/{{domain}}/install.php -- --license_agreement_accepted yes --locale de_DE --timezone "Europe/Berlin" --default_currency EUR --db_host localhost --db_name magento --db_user magento --db_pass "{{dbase_passwd}}" --url "{{domain}}/" --secure_base_url "{{domain}}/" --use_secure_admin no --use_rewrites yes --use_secure no --admin_lastname Owner --admin_firstname Store --admin_email {{admin_email}} --admin_username admin --admin_password "{{admin_passwd}}" --encryption_key "seems legit"'
+
+- name: Add crontab entries for Magento
+  cron: name=Magento user=www-data minute=*/5 job="/bin/sh /srv/www/{{domain}}/cron.sh"

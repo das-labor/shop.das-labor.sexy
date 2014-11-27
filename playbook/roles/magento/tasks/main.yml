@@ -1,0 +1,33 @@
+---
+- name: Install PHP-FPM
+  action: apt pkg={{item}} state=installed
+  with_items:
+    - php5
+    - php5-mhash
+    - php5-mcrypt
+    - php5-curl
+    - php5-cli
+    - php5-mysql
+    - php5-gd
+    - php5-fpm
+    - python-mysqldb
+
+- name: Install MySQL
+  action: apt pkg={{item}} state=installed
+  with_items:
+    - mysql-client
+    - mysql-server
+
+- name: Install unzip
+  apt: pkg=unzip state=installed
+
+- include: dbase.yml
+- include: vhost.yml
+- include: magento.yml
+
+- name: Starting servers
+  action: service name={{item}} state=started
+  with_items:
+    - nginx
+    - php5-fpm
+    - mysql

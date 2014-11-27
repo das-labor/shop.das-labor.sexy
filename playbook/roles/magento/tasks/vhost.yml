@@ -1,0 +1,12 @@
+---
+- name: Create vhost directory
+  file: dest=/srv/www/{{domain}} mode=755 owner=www-data group=www-data state=directory
+
+- name: Increase PHP 5.3 memory_limit
+  ini_file: dest=/etc/php5/fpm/php.ini section=PHP option=memory_limit value=512M
+
+- name: Copy PHP-FPM pool config
+  template: src=fpm-pool.j2 dest=/etc/php5/fpm/pool.d/{{domain}}.conf owner=root group=root mode=0644
+
+- name: Copy virtual server config
+  template: src=nginx.j2 dest=/etc/nginx/sites-available/{{domain}} owner=root group=root mode=0644

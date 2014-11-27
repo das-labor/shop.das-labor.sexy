@@ -1,0 +1,15 @@
+---
+#- name: Copy database dump
+#  copy: src=magento.sql dest=/tmp/magento.sql owner=root group=root mode=0644
+
+#- name: Copy non-constant SQL data
+#  template: src=magento-fixup.sql.j2 dest=/tmp/magento-fixup.sql owner=root group=root mode=0444
+
+#- command: sh -c "cat /tmp/magento-fixup.sql >> /tmp/magento.sql"
+
+- name: Add magento DB
+  mysql_db: name=magento
+#target=/tmp/magento.sql
+
+- name: Add magento db user
+  action: mysql_user name=magento password={{dbase_passwd}} priv=*.*:USAGE/magento.*:ALL

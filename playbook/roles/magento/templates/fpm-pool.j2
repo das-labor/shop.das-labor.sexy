@@ -1,0 +1,9 @@
+[magento]
+listen = 127.0.0.1:{{backend_port}}
+user = www-data
+group = www-data
+pm = dynamic
+pm.max_children = 96
+pm.start_servers = 16
+pm.min_spare_servers = 10
+pm.max_spare_servers = 70

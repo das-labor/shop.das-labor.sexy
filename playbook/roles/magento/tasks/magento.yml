@@ -15,7 +15,7 @@
   unarchive: dest=/tmp src=/tmp/shop-theme.zip copy=no
 
 - name: Copy Labor Shop Theme
-  command: sh -c "cp -Ra /tmp/shop-theme-master/* /srv/www/{{domain}}"
+  command: sh -c "cp -Ra /tmp/shop-theme-master/theme/* /srv/www/{{domain}}"
 
 - command: find /srv/www/{{domain}} -type d -exec chmod 700 {} \;
 - command: find /srv/www/{{domain}} -type f -exec chmod 600 {} \;

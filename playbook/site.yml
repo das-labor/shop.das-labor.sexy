@@ -1,37 +1,12 @@
 ---
 - hosts: shop.das-labor.sexy
+  vars:
+    - admin_passwd: "smashthestate"
+    - dbase_passwd: "bionicman"
   roles:
-    - role: common
-
     - role: magento
       backend_port: 9000
       domain: shop.das-labor.sexy
-      dbase_passwd: 151fsx
-      admin_email: deine_mutter@hotmail.com
-      admin_passwd: 1234abcd
-
-#    - role: mailbox
-#      name: seu
-#      domain: das-labor.sexy
-#      passwd: abc
-#
-##    - role: mailalias
-#      name: postmaster
-#     domain: das-labor.sexy
-##      to: seu@das-labor.sexy
-#
-#   - role: mailalias
-##      name: postmaster
-#      domain: shop.das-labor.sexy
-#     to: seu@das-labor.sexy
-##
-#    - role: mailalias
-##     name: postmaster
-#      domain: mit-was-mische-ich-meinen-sprit.de
-#     to: seu@das-labor.sexy
-##
-#    - role: vhost
-#     domain: das-labor.sexy
-##
-#    - role: vhost
-##     domain: mit-was-mische-ich-meinen-sprit.de
+      dbase_passwd: "{{ dbase_passwd }}"
+      admin_email: seu@das-labor.org
+      admin_passwd: "{{ admin_passwd }}"

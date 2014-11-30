@@ -1,6 +1,0 @@
----
-- name: Install nginx
-  apt: pkg=nginx state=installed
-
-- name: Postfix
-  apt: pkg=postfix state=installed
